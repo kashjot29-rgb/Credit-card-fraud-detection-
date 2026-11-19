@@ -1,4 +1,4 @@
-"""Rule-based recommendation generator (honestly named, no fake AI claim)."""
+"""Rule-based recommendation generator."""
 
 from __future__ import annotations
 
