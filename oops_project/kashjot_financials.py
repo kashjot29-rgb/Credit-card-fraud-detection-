@@ -1,4 +1,4 @@
-"""kashjot_financials.py — Core financial math & policy guardrails (Kashjot)."""
+"""kashjot_financials.py — Core financial ratios and polymorphic banking policy rules."""
 
 from __future__ import annotations
 
@@ -7,17 +7,17 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from yuvraj_oop.models import LoanApplication
+    from core_oops.models import LoanApplication
 
 
 @dataclass(frozen=True)
 class FinancialMetrics:
-    """Immutable financial ratios calculated from a LoanApplication."""
+    """Immutable financial ratios computed from a LoanApplication."""
 
     monthly_emi: float
     monthly_income: float
-    dti_percent: float       # Debt-to-Income %
-    lti_ratio: float         # Loan-to-Income ratio
+    dti_percent: float
+    lti_ratio: float
 
     @classmethod
     def from_application(
@@ -67,7 +67,10 @@ class MinCreditScoreRule(PolicyRule):
 
     def check(self, application: LoanApplication, metrics: FinancialMetrics) -> str | None:
         if application.applicant.credit_score < self.min_score:
-            return f"Credit score ({application.applicant.credit_score}) is below policy minimum ({self.min_score})."
+            return (
+                f"Credit score ({application.applicant.credit_score}) is below "
+                f"policy minimum ({self.min_score})."
+            )
         return None
 
 
@@ -77,19 +80,22 @@ class MaxDebtToIncomeRule(PolicyRule):
 
     def check(self, application: LoanApplication, metrics: FinancialMetrics) -> str | None:
         if metrics.dti_percent > self.max_dti_percent:
-            return f"Debt-to-Income ({metrics.dti_percent:.1f}%) exceeds safe ceiling ({self.max_dti_percent:.0f}%)."
+            return (
+                f"Debt-to-Income ({metrics.dti_percent:.1f}%) exceeds "
+                f"safe ceiling ({self.max_dti_percent:.0f}%)."
+            )
         return None
 
 
 class EmploymentStabilityRule(PolicyRule):
     def check(self, application: LoanApplication, metrics: FinancialMetrics) -> str | None:
         if application.applicant.employment_type == "Unemployed" and application.loan_amount > 100_000:
-            return "Unemployed applicant requesting a loan above ₹1,00,000 requires a co-signer."
+            return "Unemployed applicant requesting over ₹1,00,000 requires a co-signer."
         return None
 
 
 class LoanPolicyEngine:
-    """Evaluates core financial metrics and runs all policy rules polymorphically."""
+    """Runs all banking policy rules and returns core financial metrics."""
 
     def __init__(self, rules: list[PolicyRule] | None = None) -> None:
         self._rules: list[PolicyRule] = rules or [
@@ -114,3 +120,5 @@ class LoanPolicyEngine:
             "policy_passed": len(flags) == 0,
             "policy_flags": flags,
         }
+
+    
