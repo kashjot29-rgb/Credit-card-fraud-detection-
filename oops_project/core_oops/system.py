@@ -1,4 +1,4 @@
-"""Facade coordinating Yuvraj's OOP, Nakul's ML, and Kashjot's Financial Core."""
+"""Facade coordinating Core OOP models, ML predictor, and Financial Policy Engine."""
 
 from __future__ import annotations
 
