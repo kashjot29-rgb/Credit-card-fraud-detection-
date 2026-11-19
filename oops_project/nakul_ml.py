@@ -1,5 +1,6 @@
 """nakul_ml.py — Clean OOP + Scikit-Learn backend matching GUI & Yuvraj's contract."""
-
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
