@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ],
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "{dhruv_gui_storage.py,main.py,requirements-desktop.txt,*.db,tests/**}"
+    }
+  }
+}
