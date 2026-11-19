@@ -2,7 +2,7 @@
 
 from dhruv_gui_storage import CreditRiskApp
 from nakul_ml import predict_application
-from yuvraj_oop import CreditRiskSystem, RiskAnalyzer, create_gui_predictor
+from core_oops import CreditRiskSystem, RiskAnalyzer, create_gui_predictor
 
 if __name__ == "__main__":
     backend = CreditRiskSystem(RiskAnalyzer(predict_application))
