@@ -1,7 +1,6 @@
 """api/index.py — FastAPI serverless entrypoint for Vercel."""
 from __future__ import annotations
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning)
+
 
 
 from pathlib import Path
