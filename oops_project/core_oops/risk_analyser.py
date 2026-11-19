@@ -1,4 +1,4 @@
-"""Adapter between LoanApplication objects and Nakul's ML predictor."""
+"""Adapter between LoanApplication objects and the ML predictor."""
 
 from __future__ import annotations
 
